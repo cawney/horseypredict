@@ -14,3 +14,9 @@ To use the chart data and some machine learning to come up with a formula to pre
 ## Predictions
 
 I'm predicting that from the information I can get from the charts, the most important factors will be trainer and jockey. The rest will almost not matter.
+
+
+## Usage
+
+1. Grab cards from Equibase for training purposes
+2. Put card PDFs in cards directory

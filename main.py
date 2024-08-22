@@ -32,6 +32,7 @@ day_list = []
 
 
 re_race_number = re.compile(r'- Race (\d+)')
+re_race_name = re.compile(r'^(?P<name>.)*? -')
 # re_date = re.compile(r'[\w]+? \d{1,2}, \d{4} -')
 re_date = re.compile(r'- (?P<date>[A-Za-z].+?\d{1,2}, \d{4}) -')
 re_distance = re.compile(r'Distance: (?P<distance>.)+?On The')
@@ -110,6 +111,9 @@ def extract_line_data(lines, dictionary):
         if re_date.search(line):
             dictionary['date'] = re_date.search(line).group('date')
             dictionary['race number'] = re_race_number.search(line).group(1)
+            # Next line grab the race name/type
+            dictionary['race name'] = re_race_name.search(lines[i + 1]).group(0)[:-2]
+            print(re_race_name.search(lines[i + 1]).group(0))
         if match := re_distance.search(line):
             distance = match.group().split(': ')[1].split(' On The')[0]
             dictionary['distance'] = distance
@@ -148,6 +152,7 @@ def extract_race_data(lines, start, dictionary):
             dictionary[weight_place] = line[end_jockey + 1:end_jockey + 4].strip()
         if re_fractional_times.search(line):
             break
+
 
 def extract_trainers(lines, start, dictionary):
     """
